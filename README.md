@@ -1,5 +1,4 @@
 # 2019-nctucscamp-pygame
-===
 
 > 2019 進修組 Pygame小組 
 > 王立洋 林冠宇
