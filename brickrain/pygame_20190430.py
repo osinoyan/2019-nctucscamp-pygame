@@ -13,16 +13,12 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # 重置所有狀態
 def reset():
-	global ball_pos
-	global ball_radius
-	global ball_acc
-	global ball_velocity
-	global score
-	score = 0
+	global ball_pos, ball_radius, ball_acc, ball_velocity
+	global state, score
+	state = 'START'
 	# ball
 	ball_pos = [400, 300]
 	ball_radius = 45
-	# FACTORS
 	ball_acc = [0, 0.88]
 	ball_velocity = [0.0, 0.0]
 
@@ -55,48 +51,24 @@ def ball_bounce(mouse_pos):
 	ball_velocity[0] = vx
 	ball_velocity[1] = vy
 
-# -------------------------------------------------------
-reset()
-canvus = pygame.Surface(screen.get_size())
-picture = pygame.image.load('ball.png')
-picture = pygame.transform.scale(picture, (ball_radius*2+3, ball_radius*2+3))
-myfont = pygame.font.SysFont('Arial', 500)
-
-# 是否遊戲結束
-running = True
-clock = pygame.time.Clock()
-while running:
-	# ----------遊戲事件偵測----------------------------------
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
-			sys.exit()
-
-		if event.type == pygame.KEYDOWN:
-			if event.key == pygame.K_SPACE:
-				reset()
-
-		if event.type == pygame.MOUSEBUTTONDOWN:
-			if event.button == 1:
-				check_hit_ball(event.pos)
-	# ANIMATION ------------------------------------------------
-	clock.tick(60)
+def ball_animation():
+	global ball_pos, ball_velocity, ball_acc
 	x = ball_pos[0]
 	y = ball_pos[1]
-
-	# gravity
-	ball_velocity[0] = ball_velocity[0] + ball_acc[0]
-	ball_velocity[1] = ball_velocity[1] + ball_acc[1]
-	x = x + ball_velocity[0]
-	y = y + ball_velocity[1]
-
-	y_max = ( 500 - (ball_radius + 1) )
-	x_max = ( SCREEN_WIDTH - (ball_radius + 1) )
-	x_min = (ball_radius + 1)
 	vx = ball_velocity[0]
 	vy = ball_velocity[1]
 	ax = ball_acc[0]
 	ay = ball_acc[1]
-	
+
+	r = ball_radius
+	x_max = ( SCREEN_WIDTH - (r + 1) )
+	x_min = (r + 1)
+
+	# 牛頓運動定律
+	x = x + vx
+	y = y + vy
+	vx = vx + ax
+	vy = vy + ay
 
 	# if y_ex > 0:
 	# 	v = vy
@@ -112,42 +84,91 @@ while running:
 
 	# 右邊的牆
 	if x > x_max:
-		v = vx
 		ex = x - x_max
-		t = ex / v
-		v = -v
-		print('t='+str(t))
-		print('vx='+str(vx))
-		x = x_max - v*(1-t)
-		if math.fabs(v) < 1:
+		t = ex / vx
+		vx = -vx
+		x = x_max - vx*(1-t)
+		if math.fabs(vx) < 1:
 			ball_velocity[0] = 0
 			x = x_max
 		else:
-			ball_velocity[0] = v
+			ball_velocity[0] = vx
 	
 	# 左邊的牆
 	if x < x_min:
-		v = vx
 		ex = x - x_min
-		t = ex / v
-		v = -v
-		x = x_min - v*(1-t)
-		if math.fabs(v) < 1:
-			ball_velocity[0] = 0
+		t = ex / vx
+		vx = -vx
+		x = x_min - vx*(1-t)
+		if math.fabs(vx) < 1:
+			vx = 0
 			x = x_min
-		else:
-			ball_velocity[0] = v
+
+	ball_pos[0] = int(x)
+	ball_pos[1] = int(y)
+	ball_velocity[0] = vx
+	ball_velocity[1] = vy
+	ball_acc[0] = ax
+	ball_acc[1] = ay
+
+def check_game_over():
+	global ball_pos, state
+	y = ball_pos[1]
+	r = ball_radius
+	y_max = ( 600 + (r + 1) )
+	if y > y_max:
+		reset()
+
+# 初始化 ---------------------------------------------------
+reset()
+canvus = pygame.Surface(screen.get_size())
+picture = pygame.image.load('ball.png')
+picture = pygame.transform.scale(picture, (ball_radius*2+3, ball_radius*2+3))
+myfont = pygame.font.SysFont('Arial', 500)
+state = 'START'
+score = 0
 
 
+# 是否遊戲結束
+running = True
+clock = pygame.time.Clock()
+while running:
+	# ----------遊戲事件偵測----------------------------------
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			sys.exit()
 
+		if event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_SPACE:
+				reset()
 
-	ball_pos = [int(x), int(y)]
-	# ----------更新畫面--------------------------------------
-	canvus.fill(pygame.Color('WHITE'))
+		if state == 'START':
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				if event.button == 1:
+					check_hit_ball(event.pos)
+					if state == 'START':
+						state = 'PLAYING'
+						score = 1
+		elif state == 'PLAYING':
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				if event.button == 1:
+					check_hit_ball(event.pos)
+	# ANIMATION ------------------------------------------------
+	clock.tick(60)
+	if state == 'START':
+		# ----------更新畫面--------------------------------------
+		canvus.fill(pygame.Color('BLACK'))
+		score_text = myfont.render(str(score), True, pygame.Color('LIGHTBLUE'))
+		canvus.blit(score_text, (10, 10))
 
-	score_text = myfont.render(str(score), True, pygame.Color('LIGHTBLUE'))
+	elif state == 'PLAYING':
+		ball_animation()
+		check_game_over()
+		# ----------更新畫面--------------------------------------
+		canvus.fill(pygame.Color('WHITE'))
+		score_text = myfont.render(str(score), True, pygame.Color('LIGHTBLUE'))
+		canvus.blit(score_text, (10, 10))
 
-	canvus.blit(score_text, (10, 10))
 
 	# pygame.draw.line(canvus, pygame.Color('LIGHTBLUE'), [0, 500], [800, 500], 2)
 	# pygame.gfxdraw.filled_circle(canvus, ball_pos[0], ball_pos[1], ball_radius, pygame.Color('LIGHTBLUE'))
