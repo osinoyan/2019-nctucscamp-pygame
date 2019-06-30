@@ -124,6 +124,7 @@ reset()
 canvus = pygame.Surface(screen.get_size())
 picture = pygame.image.load('ball.png')
 picture = pygame.transform.scale(picture, (ball_radius*2+3, ball_radius*2+3))
+myfont_small = pygame.font.SysFont('Arial', 30)
 myfont = pygame.font.SysFont('Arial', 500)
 state = 'START'
 score = 0
@@ -148,7 +149,7 @@ while running:
 					check_hit_ball(event.pos)
 					if state == 'START':
 						state = 'PLAYING'
-						score = 1
+						score = 0
 		elif state == 'PLAYING':
 			if event.type == pygame.MOUSEBUTTONDOWN:
 				if event.button == 1:
@@ -158,18 +159,18 @@ while running:
 	if state == 'START':
 		# ----------更新畫面--------------------------------------
 		canvus.fill(pygame.Color('BLACK'))
-		score_text = myfont.render(str(score), True, pygame.Color('LIGHTBLUE'))
-		canvus.blit(score_text, (10, 10))
+		hint_text = myfont_small.render('Tap to start', True, pygame.Color('LIGHTBLUE'))
+		canvus.blit(hint_text, (335, 200))
 
 	elif state == 'PLAYING':
 		ball_animation()
 		check_game_over()
 		# ----------更新畫面--------------------------------------
 		canvus.fill(pygame.Color('WHITE'))
-		score_text = myfont.render(str(score), True, pygame.Color('LIGHTBLUE'))
-		canvus.blit(score_text, (10, 10))
 
 
+	score_text = myfont.render(str(score), True, pygame.Color('LIGHTBLUE'))
+	canvus.blit(score_text, (10, 10))
 	# pygame.draw.line(canvus, pygame.Color('LIGHTBLUE'), [0, 500], [800, 500], 2)
 	# pygame.gfxdraw.filled_circle(canvus, ball_pos[0], ball_pos[1], ball_radius, pygame.Color('LIGHTBLUE'))
 	# pygame.gfxdraw.aacircle(canvus, ball_pos[0], ball_pos[1], ball_radius, pygame.Color('LIGHTBLUE'))
