@@ -12,7 +12,7 @@ vy = 0.0  # y速度
 ax = 0.0  # x加速度
 ay = 0.88 # y加速度
 
-canvus = pygame.Surface(SCREEN_SIZE)
+canvas = pygame.Surface(SCREEN_SIZE)
 clock = pygame.time.Clock()
 
 # 每一幀球的移動
@@ -34,9 +34,9 @@ while running:
 	clock.tick(60)
 	ball_animation()
 	# 更新畫面 --------------------------------------
-	canvus.fill(pygame.Color('WHITE'))
-	pygame.draw.circle(canvus, pygame.Color('LIGHTBLUE'), (x, y), r)
-	screen.blit(canvus, (0, 0))
+	canvas.fill(pygame.Color('WHITE'))
+	pygame.draw.circle(canvas, pygame.Color('LIGHTBLUE'), (x, y), r)
+	screen.blit(canvas, (0, 0))
 	pygame.display.update()
 	# ----------------------------------------------
 

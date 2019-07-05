@@ -1,6 +1,6 @@
 import pygame
-import pygame.gfxdraw
-import sys
+#import pygame.gfxdraw
+#import sys
 import math
 import random
 
@@ -121,7 +121,7 @@ def check_game_over():
 
 # 初始化 ---------------------------------------------------
 reset()
-canvus = pygame.Surface(screen.get_size())
+canvas = pygame.Surface(screen.get_size())
 picture = pygame.image.load('ball.png')
 picture = pygame.transform.scale(picture, (ball_radius*2+3, ball_radius*2+3))
 myfont_small = pygame.font.SysFont('Arial', 30)
@@ -158,22 +158,22 @@ while running:
 	clock.tick(60)
 	if state == 'START':
 		# ----------更新畫面--------------------------------------
-		canvus.fill(pygame.Color('BLACK'))
+		canvas.fill(pygame.Color('BLACK'))
 		hint_text = myfont_small.render('Tap to start', True, pygame.Color('LIGHTBLUE'))
-		canvus.blit(hint_text, (335, 200))
+		canvas.blit(hint_text, (335, 200))
 
 	elif state == 'PLAYING':
 		ball_animation()
 		check_game_over()
 		# ----------更新畫面--------------------------------------
-		canvus.fill(pygame.Color('WHITE'))
+		canvas.fill(pygame.Color('WHITE'))
 
 
 	score_text = myfont.render(str(score), True, pygame.Color('LIGHTBLUE'))
-	canvus.blit(score_text, (10, 10))
-	# pygame.draw.line(canvus, pygame.Color('LIGHTBLUE'), [0, 500], [800, 500], 2)
-	# pygame.gfxdraw.filled_circle(canvus, ball_pos[0], ball_pos[1], ball_radius, pygame.Color('LIGHTBLUE'))
-	# pygame.gfxdraw.aacircle(canvus, ball_pos[0], ball_pos[1], ball_radius, pygame.Color('LIGHTBLUE'))
-	canvus.blit(picture, (ball_pos[0]-ball_radius, ball_pos[1]-ball_radius))
-	screen.blit(canvus, (0, 0))
+	canvas.blit(score_text, (10, 10))
+	# pygame.draw.line(canvas, pygame.Color('LIGHTBLUE'), [0, 500], [800, 500], 2)
+	# pygame.gfxdraw.filled_circle(canvas, ball_pos[0], ball_pos[1], ball_radius, pygame.Color('LIGHTBLUE'))
+	# pygame.gfxdraw.aacircle(canvas, ball_pos[0], ball_pos[1], ball_radius, pygame.Color('LIGHTBLUE'))
+	canvas.blit(picture, (ball_pos[0]-ball_radius, ball_pos[1]-ball_radius))
+	screen.blit(canvas, (0, 0))
 	pygame.display.update()

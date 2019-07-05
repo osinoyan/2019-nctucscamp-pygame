@@ -8,7 +8,7 @@ x = 400
 y = 300
 r = 45
 
-canvus = pygame.Surface(SCREEN_SIZE)
+canvas = pygame.Surface(SCREEN_SIZE)
 
 # 建立時鐘
 clock = pygame.time.Clock()
@@ -23,9 +23,9 @@ while running:
 	clock.tick(60) # 每秒執行 60 次
 	y = y + 1 # 球往下等速移動
 	# 更新畫面 --------------------------------------
-	canvus.fill(pygame.Color('WHITE'))
-	pygame.draw.circle(canvus, pygame.Color('LIGHTBLUE'), (x, y), r)
-	screen.blit(canvus, (0, 0))
+	canvas.fill(pygame.Color('WHITE'))
+	pygame.draw.circle(canvas, pygame.Color('LIGHTBLUE'), (x, y), r)
+	screen.blit(canvas, (0, 0))
 	pygame.display.update()
 	# ----------------------------------------------
 

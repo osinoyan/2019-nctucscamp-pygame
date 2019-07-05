@@ -10,7 +10,7 @@ y = 300 # 縱軸位置
 r = 45  # 半徑
 # --------------------------------------------
 
-canvus = pygame.Surface(SCREEN_SIZE)
+canvas = pygame.Surface(SCREEN_SIZE)
 
 running = True
 while running:
@@ -19,9 +19,10 @@ while running:
 		if event.type == pygame.QUIT:
 			running = False
 	# 更新畫面 --------------------------------------
-	canvus.fill(pygame.Color('WHITE'))
-	pygame.draw.circle(canvus, pygame.Color('LIGHTBLUE'), (x, y), r) # 根據座標和半徑，在畫布上畫出圓形(球)
-	screen.blit(canvus, (0, 0))
+	canvas.fill(pygame.Color('WHITE'))
+	pygame.draw.circle(canvas, pygame.Color('LIGHTBLUE'), (x, y), r) # 根據座標和半徑，在畫布上畫出圓形(球)
+	screen.blit(canvas, (0, 0))
 	pygame.display.update()
 	# ----------------------------------------------
 pygame.quit()
+

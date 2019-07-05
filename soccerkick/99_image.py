@@ -10,7 +10,7 @@ ball_pos = (400, 300)
 ball_radius = 45
 
 # 畫布
-canvus = pygame.Surface(SCREEN_SIZE)
+canvas = pygame.Surface(SCREEN_SIZE)
 # 圖片
 picture = pygame.image.load('ball.png')
 picture = pygame.transform.scale(picture, (ball_radius*2+3, ball_radius*2+3))
@@ -23,10 +23,10 @@ while running:
 		if event.type == pygame.QUIT:
 			running = False
 	# -------------------------------------------------------
-	canvus.fill(pygame.Color('WHITE'))
-	# pygame.draw.circle(canvus, pygame.Color('LIGHTBLUE'), ball_pos, ball_radius)
-	canvus.blit(picture, (ball_pos[0]-ball_radius, ball_pos[1]-ball_radius))
-	screen.blit(canvus, (0, 0))
+	canvas.fill(pygame.Color('WHITE'))
+	# pygame.draw.circle(canvas, pygame.Color('LIGHTBLUE'), ball_pos, ball_radius)
+	canvas.blit(picture, (ball_pos[0]-ball_radius, ball_pos[1]-ball_radius))
+	screen.blit(canvas, (0, 0))
 	pygame.display.update()
 
 pygame.quit()

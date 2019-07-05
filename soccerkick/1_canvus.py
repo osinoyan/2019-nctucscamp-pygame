@@ -5,7 +5,7 @@ SCREEN_SIZE = (800, 600)
 screen = pygame.display.set_mode(SCREEN_SIZE)
 
 # 畫布 -------------------------------------------
-canvus = pygame.Surface(SCREEN_SIZE)
+canvas = pygame.Surface(SCREEN_SIZE)
 # -----------------------------------------------
 
 running = True
@@ -15,8 +15,8 @@ while running:
 		if event.type == pygame.QUIT:
 			running = False
 	# 更新畫面 --------------------------------------
-	canvus.fill(pygame.Color('WHITE'))
-	screen.blit(canvus, (0, 0))
+	canvas.fill(pygame.Color('WHITE'))
+	screen.blit(canvas, (0, 0))
 	pygame.display.update()
 	# ----------------------------------------------
 pygame.quit()
