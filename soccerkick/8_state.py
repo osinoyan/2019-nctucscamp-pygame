@@ -17,7 +17,7 @@ ay = 0.88
 # state 變數表示著當下的遊戲狀態: [START=起始畫面], [PLAYING=遊戲中]
 state = 'START' 
 
-canvus = pygame.Surface(SCREEN_SIZE)
+canvas = pygame.Surface(SCREEN_SIZE)
 clock = pygame.time.Clock()
 
 # 重置遊戲狀態
@@ -107,15 +107,15 @@ while running:
 	clock.tick(60)
 	# 不同的遊戲狀態，畫面的顯示也不同 ----------------------
 	if state == 'START':  # [起始畫面] ----------------------------
-		canvus.fill(pygame.Color('BLACK')) # 畫布背景為黑色
+		canvas.fill(pygame.Color('BLACK')) # 畫布背景為黑色
 	elif state == 'PLAYING':  # [遊戲中] --------------------------
 		ball_animation()    # 只有在[遊戲中]，球才會動
 		check_game_over()   # 只有在[遊戲中]，會去檢查有沒有球掉下去 game over
-		canvus.fill(pygame.Color('WHITE')) # 畫布背景為白色
+		canvas.fill(pygame.Color('WHITE')) # 畫布背景為白色
 	
 	# 更新畫面 --------------------------------------
-	pygame.draw.circle(canvus, pygame.Color('LIGHTBLUE'), (x, y), r)
-	screen.blit(canvus, (0, 0))
+	pygame.draw.circle(canvas, pygame.Color('LIGHTBLUE'), (x, y), r)
+	screen.blit(canvas, (0, 0))
 	pygame.display.update()
 	# ----------------------------------------------
 

@@ -17,7 +17,7 @@ ay = 0.88
 state = 'START' 
 score = 0
 
-canvus = pygame.Surface(SCREEN_SIZE)
+canvas = pygame.Surface(SCREEN_SIZE)
 clock = pygame.time.Clock()
 myfont = pygame.font.SysFont('Arial', 500)
 
@@ -111,18 +111,18 @@ while running:
 	# 動畫控制 --------------------------------------
 	clock.tick(60)
 	if state == 'START': 
-		canvus.fill(pygame.Color('BLACK'))
+		canvas.fill(pygame.Color('BLACK'))
 	elif state == 'PLAYING':
 		ball_animation()
 		check_game_over()
-		canvus.fill(pygame.Color('WHITE'))
+		canvas.fill(pygame.Color('WHITE'))
 	
 	# 更新畫面 --------------------------------------
 	score_text = myfont.render(str(score), True, pygame.Color('PINK'))
-	canvus.blit(score_text, (10, 10))
-	# pygame.draw.circle(canvus, pygame.Color('LIGHTBLUE'), (x, y), r)
-	canvus.blit(picture, (x-r, y-r)) # 把球的圖片根據球的位置座標貼在畫布上面
-	screen.blit(canvus, (0, 0))
+	canvas.blit(score_text, (10, 10))
+	# pygame.draw.circle(canvas, pygame.Color('LIGHTBLUE'), (x, y), r)
+	canvas.blit(picture, (x-r, y-r)) # 把球的圖片根據球的位置座標貼在畫布上面
+	screen.blit(canvas, (0, 0))
 	pygame.display.update()
 	# ----------------------------------------------
 

@@ -17,7 +17,7 @@ ay = 0.88
 state = 'START' 
 score = 0     # score 遊戲分數
 
-canvus = pygame.Surface(SCREEN_SIZE)
+canvas = pygame.Surface(SCREEN_SIZE)
 clock = pygame.time.Clock()
 myfont = pygame.font.SysFont('Arial', 500)    # 字型設定
 
@@ -108,19 +108,19 @@ while running:
 	# 動畫控制 --------------------------------------
 	clock.tick(60)
 	if state == 'START': 
-		canvus.fill(pygame.Color('BLACK'))
+		canvas.fill(pygame.Color('BLACK'))
 	elif state == 'PLAYING':
 		ball_animation()
 		check_game_over()
-		canvus.fill(pygame.Color('WHITE'))
+		canvas.fill(pygame.Color('WHITE'))
 	
 	# 更新畫面 --------------------------------------
 
 	score_text = myfont.render(str(score), True, pygame.Color('DARKBLUE')) # 新增分數的文字物件
-	canvus.blit(score_text, (10, 10)) # 把文字物件貼到畫布上
+	canvas.blit(score_text, (10, 10)) # 把文字物件貼到畫布上
 
-	pygame.draw.circle(canvus, pygame.Color('LIGHTBLUE'), (x, y), r)
-	screen.blit(canvus, (0, 0))
+	pygame.draw.circle(canvas, pygame.Color('LIGHTBLUE'), (x, y), r)
+	screen.blit(canvas, (0, 0))
 	pygame.display.update()
 	# ----------------------------------------------
 

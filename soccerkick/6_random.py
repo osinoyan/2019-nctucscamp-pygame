@@ -14,7 +14,7 @@ ax = 0.0
 # ay = 0.88
 ay = 0.0 # 為了測試把重力加速度先去掉
 
-canvus = pygame.Surface(SCREEN_SIZE)
+canvas = pygame.Surface(SCREEN_SIZE)
 clock = pygame.time.Clock()
 
 def ball_animation():
@@ -63,9 +63,9 @@ while running:
 	ball_animation()
 	
 	# 更新畫面 --------------------------------------
-	canvus.fill(pygame.Color('WHITE'))
-	pygame.draw.circle(canvus, pygame.Color('LIGHTBLUE'), (x, y), r)
-	screen.blit(canvus, (0, 0))
+	canvas.fill(pygame.Color('WHITE'))
+	pygame.draw.circle(canvas, pygame.Color('LIGHTBLUE'), (x, y), r)
+	screen.blit(canvas, (0, 0))
 	pygame.display.update()
 	# ----------------------------------------------
 
