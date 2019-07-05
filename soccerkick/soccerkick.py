@@ -112,7 +112,7 @@ while running:
 	clock.tick(60)
 	if state == 'START': 
 		canvas.fill(pygame.Color('BLACK'))
-		hint_text = myfont_xs.render('Tap to start', True, pygame.Color('ORANGE'))
+		hint_text = myfont_xs.render('Tap to start', True, pygame.Color('SALMON'))
 		canvas.blit(hint_text, (325, 210))
 	elif state == 'PLAYING':
 		ball_animation()
@@ -120,7 +120,7 @@ while running:
 		canvas.fill(pygame.Color('WHITE'))
 	
 	# 更新畫面 --------------------------------------
-	score_text = myfont.render(str(score), True, pygame.Color('ORANGE'))
+	score_text = myfont.render(str(score), True, pygame.Color('SALMON'))
 	canvas.blit(score_text, (10, 10))
 	# pygame.draw.circle(canvas, pygame.Color('LIGHTBLUE'), (x, y), r)
 	canvas.blit(picture, (x-r, y-r))
