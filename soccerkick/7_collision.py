@@ -1,4 +1,6 @@
 import pygame
+import random
+import math # 引入數學模組
 pygame.init()
 
 SCREEN_SIZE = (800, 600)
@@ -11,20 +13,43 @@ vx = 0.0
 vy = 0.0
 ax = 0.0
 # ay = 0.88
-ay = 0.0 # 為了測試把重力加速度先去掉
+ay = 0.3 # 為了測試把重力加速度先調小
 
 canvus = pygame.Surface(SCREEN_SIZE)
 clock = pygame.time.Clock()
 
 def ball_animation():
 	global x, y, vx, vy, ax, ay
-	# 牛頓運動定律
+	x_max = SCREEN_SIZE[0] - r  # 球剛好碰到右壁時，此時的球心 x 座標
+	x_min = r                   # 球剛好碰到左壁時，此時的球心 x 座標
+	
+	# 牛頓運動定律 --------------------------
+	
 	x = int(x + vx)
 	y = int(y + vy)
 	vx = vx + ax
 	vy = vy + ay
 
-# 取得兩個點的距離平方
+	# 彈性碰撞 ------------------------------
+
+	if x > x_max: # 碰到右邊的牆
+		ex = x - x_max
+		t = ex / vx
+		vx = -vx
+		x = int(x_max - vx*(1-t))
+		if math.fabs(vx) < 1:
+			vx = 0
+			x = x_max
+	
+	if x < x_min: # 碰到左邊的牆
+		ex = x - x_min
+		t = ex / vx
+		vx = -vx
+		x = int(x_min - vx*(1-t))
+		if math.fabs(vx) < 1:
+			vx = 0
+			x = x_min
+
 def distance_square(pos1, pos2):
 	x1 = pos1[0]
 	y1 = pos1[1]
@@ -32,18 +57,16 @@ def distance_square(pos1, pos2):
 	y2 = pos2[1]
 	return (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2)
 
-# 球彈上去的效果
 def ball_bounce():
-	global vy
-	vy = -20.0 # 球往上飛
+	global vx, vy
+	vx = random.uniform(-5.0, 5.0)      # 球的 x 速度是介在 -5.0 ~ 5.0 之間的隨機數字
+	# vy = random.uniform(-21.0, -20.0) # 球的 y 速度是介在 -21.0 ~ -20.0 之間的隨機數字
+	vy = -10.0                           # 球的 y 速度是 -10.0 (測試用)
 
-# 確認滑鼠有沒有按到球
 def check_hit_ball(mouse_pos):
 	ball_pos = [x, y]
-	# 當滑鼠座標離球心的距離小於半徑時，代表滑鼠座標在球的面積範圍內
 	if r * r > distance_square(mouse_pos, ball_pos):
 		print('HIT!')
-		print(mouse_pos)
 		ball_bounce()
 	else:
 		print('NO!')

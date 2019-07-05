@@ -1,4 +1,5 @@
 import pygame
+import random # 引入隨機模組
 pygame.init()
 
 SCREEN_SIZE = (800, 600)
@@ -24,7 +25,6 @@ def ball_animation():
 	vx = vx + ax
 	vy = vy + ay
 
-# 取得兩個點的距離平方
 def distance_square(pos1, pos2):
 	x1 = pos1[0]
 	y1 = pos1[1]
@@ -34,16 +34,15 @@ def distance_square(pos1, pos2):
 
 # 球彈上去的效果
 def ball_bounce():
-	global vy
-	vy = -20.0 # 球往上飛
+	global vx, vy
+	vx = random.uniform(-5.0, 5.0)    # 球的 x 速度是介在 -5.0 ~ 5.0 之間的隨機數字
+	vy = random.uniform(-21.0, -20.0) # 球的 y 速度是介在 -21.0 ~ -20.0 之間的隨機數字
 
 # 確認滑鼠有沒有按到球
 def check_hit_ball(mouse_pos):
 	ball_pos = [x, y]
-	# 當滑鼠座標離球心的距離小於半徑時，代表滑鼠座標在球的面積範圍內
 	if r * r > distance_square(mouse_pos, ball_pos):
 		print('HIT!')
-		print(mouse_pos)
 		ball_bounce()
 	else:
 		print('NO!')
