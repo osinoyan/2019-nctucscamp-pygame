@@ -11,7 +11,7 @@ vx = 0.0
 vy = 0.0
 ax = 0.0
 # ay = 0.88
-ay = 0.0 # 為了測試把重力加速度先去掉
+ay = 0.3 # 為了測試把重力加速度先調小
 
 canvas = pygame.Surface(SCREEN_SIZE)
 clock = pygame.time.Clock()

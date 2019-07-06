@@ -12,7 +12,7 @@ vx = 0.0
 vy = 0.0
 ax = 0.0
 # ay = 0.88
-ay = 0.0 # 為了測試把重力加速度先去掉
+ay = 0.3 # 為了測試把重力加速度先調小
 
 canvas = pygame.Surface(SCREEN_SIZE)
 clock = pygame.time.Clock()
@@ -35,7 +35,7 @@ def distance_square(pos1, pos2):
 # 球彈上去的效果
 def ball_bounce():
 	global vx, vy
-	vx = random.uniform(-5.0, 5.0)    # 球的 x 速度是介在 -5.0 ~ 5.0 之間的隨機數字
+	vx = random.uniform(-5.5, 5.5)    # 球的 x 速度是介在 -5.0 ~ 5.0 之間的隨機數字
 	vy = random.uniform(-21.0, -20.0) # 球的 y 速度是介在 -21.0 ~ -20.0 之間的隨機數字
 
 # 確認滑鼠有沒有按到球
