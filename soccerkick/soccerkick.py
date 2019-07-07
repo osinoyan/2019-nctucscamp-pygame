@@ -35,13 +35,12 @@ def reset():
 	# -------------------------------------
 
 def check_game_over():
-	global x, y, state
 	y_max = SCREEN_SIZE[1] + r
 	if y > y_max:
 		reset()
 
 def ball_animation():
-	global x, y, vx, vy, ax, ay
+	global x, y, vx, vy
 	x_max = SCREEN_SIZE[0] - r  # 球剛好碰到右壁時，此時的球心 x 座標
 	x_min = r                   # 球剛好碰到左壁時，此時的球心 x 座標
 	

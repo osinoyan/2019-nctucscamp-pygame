@@ -17,7 +17,7 @@ clock = pygame.time.Clock()
 
 # 每一幀球的移動
 def ball_animation():
-	global x, y, vx, vy, ax, ay
+	global x, y, vx, vy
 	# 牛頓運動定律
 	x = int(x + vx)
 	y = int(y + vy)
@@ -41,3 +41,6 @@ while running:
 	# ----------------------------------------------
 
 pygame.quit()
+
+
+
