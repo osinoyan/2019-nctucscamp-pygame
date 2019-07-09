@@ -17,8 +17,7 @@ canvas = pygame.Surface(SCREEN_SIZE)
 clock = pygame.time.Clock()
 
 def ball_animation():
-	global x, y, vx, vy, ax, ay
-	# 牛頓運動定律
+	global x, y, vx, vy
 	x = int(x + vx)
 	y = int(y + vy)
 	vx = vx + ax

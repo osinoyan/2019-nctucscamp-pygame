@@ -19,7 +19,6 @@ clock = pygame.time.Clock()
 
 def ball_animation():
 	global x, y, vx, vy
-	# 牛頓運動定律
 	x = int(x + vx)
 	y = int(y + vy)
 	vx = vx + ax
@@ -43,6 +42,7 @@ def check_hit_ball(mouse_pos):
 	ball_pos = [x, y]
 	if r * r > distance_square(mouse_pos, ball_pos):
 		print('HIT!')
+		print(mouse_pos)
 		ball_bounce()
 	else:
 		print('NO!')

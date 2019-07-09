@@ -22,7 +22,7 @@ def ball_animation():
 	x_max = SCREEN_SIZE[0] - r  # 球剛好碰到右壁時，此時的球心 x 座標
 	x_min = r                   # 球剛好碰到左壁時，此時的球心 x 座標
 	
-	# 牛頓運動定律 --------------------------
+	# 運動公式 --------------------------
 	
 	x = int(x + vx)
 	y = int(y + vy)
@@ -66,6 +66,7 @@ def check_hit_ball(mouse_pos):
 	ball_pos = [x, y]
 	if r * r > distance_square(mouse_pos, ball_pos):
 		print('HIT!')
+		print(mouse_pos)
 		ball_bounce()
 	else:
 		print('NO!')

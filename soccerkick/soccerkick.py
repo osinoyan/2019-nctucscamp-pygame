@@ -1,6 +1,5 @@
 import pygame
 import random
-import math
 pygame.init()
 
 SCREEN_SIZE = (800, 600)
@@ -44,7 +43,7 @@ def ball_animation():
 	x_max = SCREEN_SIZE[0] - r  # 球剛好碰到右壁時，此時的球心 x 座標
 	x_min = r                   # 球剛好碰到左壁時，此時的球心 x 座標
 	
-	# 牛頓運動定律 --------------------------
+	# 運動公式 --------------------------
 	
 	x = int(x + vx)
 	y = int(y + vy)
@@ -58,7 +57,7 @@ def ball_animation():
 		t = ex / vx
 		vx = -vx
 		x = int(x_max - vx*(1-t))
-		if math.fabs(vx) < 1:
+		if abs(vx) < 1:
 			vx = 0
 			x = x_max
 	
@@ -67,7 +66,7 @@ def ball_animation():
 		t = ex / vx
 		vx = -vx
 		x = int(x_min - vx*(1-t))
-		if math.fabs(vx) < 1:
+		if abs(vx) < 1:
 			vx = 0
 			x = x_min
 
@@ -87,11 +86,8 @@ def check_hit_ball(mouse_pos):
 	global score
 	ball_pos = [x, y]
 	if r * r > distance_square(mouse_pos, ball_pos):
-		print('HIT!')
 		ball_bounce()
 		score = score + 1
-	else:
-		print('NO!')
 
 running = True
 while running:
@@ -121,7 +117,6 @@ while running:
 	# 更新畫面 --------------------------------------
 	score_text = myfont.render(str(score), True, pygame.Color('SALMON'))
 	canvas.blit(score_text, (10, 10))
-	# pygame.draw.circle(canvas, pygame.Color('LIGHTBLUE'), (x, y), r)
 	canvas.blit(picture, (x-r, y-r))
 	screen.blit(canvas, (0, 0))
 	pygame.display.update()
